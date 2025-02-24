@@ -10,11 +10,11 @@ export default function Home() {
   const classroom = 1;
 
   return (
-    <div>
+    <>
       <Text1 />
       <Text2 />
 
-      <p>This is {classroom}(first) class</p>
-    </div>
+      <p>This is {classroom} (first) class</p>
+    </>
   );
 }
