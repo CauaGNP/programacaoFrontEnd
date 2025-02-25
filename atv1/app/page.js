@@ -26,8 +26,7 @@ export default function Home() {
 //  }
 
   function generateNumber(){
-    setNumA(Math.floor(Math.random() * (10)))
-   
+    setNumA(Math.floor(Math.random() * (100 - 1) + 1));
   }
 
   return (
@@ -48,8 +47,8 @@ export default function Home() {
         {hide ? "Show" : "Hide"}
       </button>
 
-      <h1>Number:</h1>
-      <p>{numA}</p>
+      <h1>Number: {numA} </h1>
+  
       <button onClick = { generateNumber } >Generate Number</button>
     </>
   );
