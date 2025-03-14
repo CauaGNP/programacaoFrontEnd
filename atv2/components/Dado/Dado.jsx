@@ -1,6 +1,7 @@
 import styles from "./dado.module.css";
 
 export function Dado(props){
+    
     let url;
     
     switch(props.valor){
