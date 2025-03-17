@@ -36,11 +36,12 @@ export default function Home() {
 
   return (
     <div className={styles.divPai}>
-      <p className={styles.paragrafo}>Rounds: {rounds}</p>
+      <h1 className={styles.titulo}>Rounds: {rounds}</h1>
 
       <div className={styles.divDado}>
         {counters.map((counter, i) => (
           <div key={`counter-${i}`} className={styles.divKey}>
+            <h2>Jogador {i + 1}</h2>
             <Dado valor={counter.slice(-1)[0]} />
 
             <button
