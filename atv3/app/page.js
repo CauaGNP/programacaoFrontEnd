@@ -6,20 +6,38 @@ import { Dado } from "@/components/Dado/Dado.jsx";
 
 export default function Home() {
 
-  const [rounds, setRounds] = useState(1);
+
+  const [rounds, setRounds] = useState(0);
   const [counters, setCounters] = useState([[], []]);
   const [current, setCurrent] = useState(0);
+  const [numVerify, setNumVerify] = useState(0);
+  const [dice1, setDice1] = useState(0);
+  const [dice2, setDice2] = useState(0);
+  //const [pointsDice, setPointsDice] = useState([[0],[0]]);
+  // const [pointsDice, setPointsDice] = useState({
+  //   dice1 : 0,
+  //   dice2 : 0
+  // });
 
-  const points = counters
-    .map((counter) => counter.reduce((a, b) => a + b, 0))
-    .sort((a, b) => b - a)
-    .map((points, i) => ({
-      points,
-      player: i,
-    }));
+  function verify(value1, value2) {
+    console.log(value1[numVerify] + " " + value2[numVerify]);
+
+    if(value1[numVerify] > value2[numVerify]){
+      setDice1(dice1 + 1);
+    }else if(value1[numVerify] < value2[numVerify]){
+      setDice2(dice2 + 1);
+    }else{
+      setDice1(dice1 + 1);
+      setDice2(dice2 + 1)
+    }
+    
+    console.log(dice1 + "||" + dice2);
+
+    setNumVerify(numVerify + 1);
+  }
 
   function randomNumber(index) {
-    if (rounds === 5) return;
+    if (rounds > 5) return;
 
     const random = Math.floor(Math.random() * 6) || 1;
 
@@ -31,12 +49,13 @@ export default function Home() {
 
     if (copy.every((counter) => counter.length === counters[0].length)) {
       setRounds(rounds + 1);
+      verify(copy[0], copy[1])
     }
   }
 
   return (
     <div className={styles.divPai}>
-      <h1 className={styles.titulo}>Rounds: {rounds}</h1>
+      <h1 className={styles.titulo}>Round: {rounds + 1}</h1>
 
       <div className={styles.divDado}>
         {counters.map((counter, i) => (
@@ -55,26 +74,19 @@ export default function Home() {
         ))}
       </div>
 
+      <h1>Placar: {dice1} x {dice2} </h1>
+
       {rounds === 5 && (
         <div>
-          <p>Jogo terminado!</p>
-
-          <p>
-            Melhor pontuação: {points[0].points} por Jogador {points[0].player + 1}
-          </p>
-
-          <div>
-            {points.map((point, i) => (
-              <p key={`point-${i}`}>
-                {point.points} por Jogador {point.player + 1}
-              </p>
-            ))}
-          </div>
-
+          <h1>Jogo terminado!</h1>
+          <h2>{dice1 > dice2 ? "Jogador 1 venceu" : (dice1 < dice2 ? "Jogador 2 venceu" : "Empate")}</h2>
           <button
             onClick={() => {
-              setRounds(1);
+              setRounds(0);
               setCounters([[], []]);
+              setDice1(0);
+              setDice2(0);
+              setNumVerify(0);
             }}
           >
             Reiniciar
