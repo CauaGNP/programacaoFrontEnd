@@ -8,6 +8,7 @@ let indice = 0
 
 export default function Home() {
 
+
   const [rounds, setRounds] = useState(0);
   const [counters, setCounters] = useState([[], []]);
   const [current, setCurrent] = useState(0);
@@ -29,6 +30,7 @@ export default function Home() {
     console.log(value2[indice]);
 
     indice += 1;
+
   }
 
   function randomNumber(index) {
@@ -44,22 +46,13 @@ export default function Home() {
 
     if (copy.every((counter) => counter.length === counters[0].length)) {
       setRounds(rounds + 1);
-<<<<<<< HEAD
-      verify(copy[0], copy[1]);
-=======
       verify(copy[0], copy[1])
->>>>>>> cd5b7c7e9ca9b5bbd6f529e13411a776995fd0bc
     }
   }
 
   return (
     <div className={styles.divPai}>
-<<<<<<< HEAD
-      <h1 className={styles.titulo}>Rounds: {rounds <= 5 ? rounds : null}</h1>
-=======
       <h1 className={styles.titulo}>Round: {rounds + 1}</h1>
->>>>>>> cd5b7c7e9ca9b5bbd6f529e13411a776995fd0bc
-
       <div className={styles.divDado}>
         {counters.map((counter, i) => (
           <div key={`counter-${i}`} className={styles.divKey}>
@@ -77,29 +70,18 @@ export default function Home() {
         ))}
       </div>
 
-<<<<<<< HEAD
-      <div>Jogador 1 {dice1} x {dice2} Jogador 2</div>
-
-      {rounds === 6 && (
-        <div>
-          <h1>Jogo terminado!</h1>
-          <h1>  {dice1 > dice2 ? "Jogador 1 ganhou" : "Jogador 2 ganhou"}</h1>
-
-=======
       <h1>Placar: {dice1} x {dice2} </h1>
 
       {rounds === 5 && (
         <div>
           <h1>Jogo terminado!</h1>
           <h2>{dice1 > dice2 ? "Jogador 1 venceu" : (dice1 < dice2 ? "Jogador 2 venceu" : "Empate")}</h2>
->>>>>>> cd5b7c7e9ca9b5bbd6f529e13411a776995fd0bc
           <button
             onClick={() => {
               setRounds(0);
               setCounters([[], []]);
               setDice1(0);
               setDice2(0);
-              setNumVerify(0);
             }}
           >
             Reiniciar
