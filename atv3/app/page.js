@@ -4,19 +4,32 @@ import styles from "./page.module.css";
 import { useState } from "react";
 import { Dado } from "@/components/Dado/Dado.jsx";
 
+let indice = 0
+
 export default function Home() {
 
   const [rounds, setRounds] = useState(1);
   const [counters, setCounters] = useState([[], []]);
   const [current, setCurrent] = useState(0);
+  
+  const [dice1, setDice1] = useState(0);
+  const [dice2, setDice2] = useState(0);
+    
+  function verify(value1, value2){
+    if(value1[indice] > value2[indice]){
+      setDice1(dice1 + 1);
+    }else if(value1[indice] < value2[indice]){
+      setDice2(dice2 + 1);
+    }else{
+      setDice1(dice1 + 1);
+      setDice2(dice2 + 1);
+    }
 
-  const points = counters
-    .map((counter) => counter.reduce((a, b) => a + b, 0))
-    .sort((a, b) => b - a)
-    .map((points, i) => ({
-      points,
-      player: i,
-    }));
+    console.log(value1[indice]);
+    console.log(value2[indice]);
+
+    indice += 1;
+  }
 
   function randomNumber(index) {
     if (rounds === 5) return;
@@ -31,12 +44,13 @@ export default function Home() {
 
     if (copy.every((counter) => counter.length === counters[0].length)) {
       setRounds(rounds + 1);
+      verify(copy[0], copy[1]);
     }
   }
 
   return (
     <div className={styles.divPai}>
-      <h1 className={styles.titulo}>Rounds: {rounds}</h1>
+      <h1 className={styles.titulo}>Rounds: {rounds <= 5 ? rounds : null}</h1>
 
       <div className={styles.divDado}>
         {counters.map((counter, i) => (
@@ -55,21 +69,12 @@ export default function Home() {
         ))}
       </div>
 
-      {rounds === 5 && (
+      <div>Jogador 1 {dice1} x {dice2} Jogador 2</div>
+
+      {rounds === 6 && (
         <div>
-          <p>Jogo terminado!</p>
-
-          <p>
-            Melhor pontuação: {points[0].points} por Jogador {points[0].player + 1}
-          </p>
-
-          <div>
-            {points.map((point, i) => (
-              <p key={`point-${i}`}>
-                {point.points} por Jogador {point.player + 1}
-              </p>
-            ))}
-          </div>
+          <h1>Jogo terminado!</h1>
+          <h1>  {dice1 > dice2 ? "Jogador 1 ganhou" : "Jogador 2 ganhou"}</h1>
 
           <button
             onClick={() => {
