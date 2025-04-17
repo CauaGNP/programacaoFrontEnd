@@ -23,7 +23,7 @@ export default function ConvertMoney(){
         const dolarValue = 5.87;
         if(e.target.value === ""){
             copyConvert[1] = 0;
-            setNumDolar(copyConvert)
+            setNumConvert(copyConvert)
             return;
         }
         copyConvert[1] = parseFloat((e.target.value * dolarValue)).toFixed(2);
