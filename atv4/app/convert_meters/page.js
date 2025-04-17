@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function convertMeters(){
+export default function ConvertMeters(){
     const [numConvert, setNumConvert] = useState([0, 0]);
 
     function convertMetersForInches(e){
